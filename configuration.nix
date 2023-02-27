@@ -4,16 +4,13 @@
 {
   config,
   pkgs,
+  stateVersion,
+  username,
   ...
-}: let
-  stateVersion = "22.11";
-  username = "lime";
-  systemVersion = "x86_64-linux";
-in {
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    <home-manager/nixos>
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -27,7 +24,6 @@ in {
     hosts = {
       "192.168.1.70" = ["tangelo"];
     };
-    dhcpcd = true;
     firewall = {
       enable = true;
       allowPing = true;
@@ -105,12 +101,12 @@ in {
     ];
   };
 
-  home-manager = {
-    useGlobalPkgs = true;
-    users.${username} = import ./home_manager/configuration.nix {
-      inherit stateVersion systemVersion pkgs username config;
-    };
-  };
+  # home-manager = {
+  #   useGlobalPkgs = true;
+  #   users.${username} = import ./home_manager/configuration.nix {
+  #     inherit stateVersion systemVersion pkgs username config;
+  #   };
+  # };
 
   fonts.fonts = with pkgs; [
     (nerdfonts.override {
