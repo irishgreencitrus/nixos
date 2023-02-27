@@ -8,13 +8,13 @@
     };
   };
 
-  outputs = {
+  outputs = inputs @ {
     self,
     nixpkgs,
     home-manager,
   }: {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-    nixosConfigurations.container = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.pomegranate = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [./configuration.nix];
     };
