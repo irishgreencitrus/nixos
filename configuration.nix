@@ -11,8 +11,10 @@
 in {
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  boot.loader = {systemd-boot.enable = true;
-  efi.canTouchEfiVariables = true;};
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
   imports = [
     ./hardware-configuration.nix
@@ -54,13 +56,15 @@ in {
     ];
   };
 
-  fonts = {fonts = with pkgs; [
-    (nerdfonts.override {
-      fonts = ["Hermit"];
-    })
-  ];
-  fontDir.enable = true;
-  enableDefaultFonts = true;};
+  fonts = {
+    fonts = with pkgs; [
+      (nerdfonts.override {
+        fonts = ["Hermit"];
+      })
+    ];
+    fontDir.enable = true;
+    enableDefaultFonts = true;
+  };
 
   environment.systemPackages = with pkgs; [
     vim
@@ -108,11 +112,11 @@ in {
     };
     printing.enable = true;
     pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        pulse.enable = true;
-        jack.enable = true;
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
     };
   };
 

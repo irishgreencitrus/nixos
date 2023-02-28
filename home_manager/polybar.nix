@@ -3,7 +3,9 @@
   lib,
   pkgs,
   ...
-}: let background_colour = "#262626"; in {
+}: let
+  background_colour = "#262626";
+in {
   services.polybar = {
     package = pkgs.polybar.override {
       i3Support = true;
@@ -16,30 +18,36 @@
       "bar/top" = {
         width = "100%";
         height = "2%";
+        background = background_colour;
         radius = 3;
         modules = {
           left = "i3";
           right = "network audio date";
         };
-        font = ["Hurmit Medium Nerd Font Complete Mono:size=14;2"];
+        font = ["Hurmit Nerd Font Mono:style=medium:size=14;2"];
+        module.margin.right = 2;
         padding = {
-          left = 3;
-          right = 3;
+          left = 2;
+          right = 2;
+        };
+        tray = {
+          position = "right";
+          transparent = true;
         };
       };
       "module/network" = {
         type = "internal/network";
         interface-type = "wired";
-        interval = 10.0;
+        interval = 2.0;
         label = {
-            connected = {
-                text = "歷%local_ip%  龍%netspeed%";
-                foreground = "#59ff64"
-            };
-            disconnected = {
-                text = "轢No connection";
-                foreground = "#ff8059"
-            };
+          connected = {
+            text = "歷 %local_ip% 龍 %netspeed%";
+            foreground = "#59ff64";
+          };
+          disconnected = {
+            text = "轢 Disconnected";
+            foreground = "#ff8059";
+          };
         };
       };
       "module/date" = {
@@ -47,15 +55,21 @@
         internal = 5;
         date = "%d.%m.%y";
         time = "%H:%M";
-        label = " %date%  %time%";
-        label-foreground = "#ffffff";
+        label.text = " %date%  %time%";
+        label.foreground = "#ffffff";
       };
       "module/audio" = {
         type = "internal/pulseaudio";
         use.ui.max = true;
         label = {
-            volume = {text = " %percentage%"; foreground = "#00f28d";};
-            muted = {text = " %percentage%"; foreground = "#f22000"};
+          volume = {
+            text = " %percentage%";
+            foreground = "#00f28d";
+          };
+          muted = {
+            text = " %percentage%";
+            foreground = "#f22000";
+          };
         };
       };
       "module/i3" = {
