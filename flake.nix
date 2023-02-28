@@ -8,24 +8,27 @@
     };
   };
 
-  outputs = inputs @ {
+  outputs = {
     self,
     nixpkgs,
     home-manager,
-  }: let systemVersion = "x86_64-linux"; username = "lime"; stateVersion = "22.11"; in {
+  }: let
+    systemVersion = "x86_64-linux";
+    username = "lime";
+    stateVersion = "22.11";
+  in {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
     nixosConfigurations.pomegranate = nixpkgs.lib.nixosSystem {
       system = systemVersion;
       modules = [
-      ./configuration.nix {inherit username;}
-      home-manager.nixosModules.home-manager {
-
+        ./configuration.nix
+        home-manager.nixosModules.home-manager
+        {
           home-manager.useGlobalPkgs = true;
-        home-manager.users.${username} = import ./home_manager/configuration.nix {
+          home-manager.users.${username} = import ./home_manager/configuration.nix {
             inherit stateVersion systemVersion username;
-        };
-      }
-
+          };
+        }
       ];
     };
   };

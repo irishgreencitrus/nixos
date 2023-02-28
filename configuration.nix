@@ -4,20 +4,19 @@
 {
   config,
   pkgs,
-  stateVersion,
-  username,
   ...
-}: {
+}: let
+  username = "lime";
+  stateVersion = "22.11";
+in {
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+
+  boot.loader = {systemd-boot.enable = true;
+  efi.canTouchEfiVariables = true;};
+
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   networking = {
     hostName = "pomegranate";
@@ -35,60 +34,14 @@
 
   time.timeZone = "Europe/London";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    # keyMap = "gb";
-    useXkbConfig = true; # use xkbOptions in tty.
+    useXkbConfig = true;
   };
 
-  # Enable the X11 windowing system.
-  services.picom = {
-    enable = true;
-    vSync = true;
-  };
-  services.xserver = {
-    enable = true;
-    displayManager = {
-      sddm.enable = false;
-      gdm.enable = true;
-      lightdm.enable = false;
-      defaultSession = "none+i3";
-    };
-    windowManager.i3 = {
-      enable = true;
-      extraPackages = with pkgs; [
-        i3status
-        i3lock
-      ];
-    };
-    videoDrivers = ["intel" "modesetting"];
-    layout = "gb";
-    exportConfiguration = true;
-  };
-
-  # Configure keymap in X11
-  # services.xserver.xkbOptions = {
-  #   "eurosign:e";
-  #   "caps:escape" # map caps to escape.
-  # };
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${username} = {
     isNormalUser = true;
     extraGroups = ["wheel"];
@@ -101,18 +54,13 @@
     ];
   };
 
-  # home-manager = {
-  #   useGlobalPkgs = true;
-  #   users.${username} = import ./home_manager/configuration.nix {
-  #     inherit stateVersion systemVersion pkgs username config;
-  #   };
-  # };
-
-  fonts.fonts = with pkgs; [
+  fonts = {fonts = with pkgs; [
     (nerdfonts.override {
       fonts = ["Hermit"];
     })
   ];
+  fontDir.enable = true;
+  enableDefaultFonts = true;};
 
   environment.systemPackages = with pkgs; [
     vim
@@ -126,35 +74,49 @@
     unzip
   ];
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    startWhenNeeded = true;
-    ports = [22];
-    permitRootLogin = "no";
-    openFirewall = true;
+  services = {
+    openssh = {
+      enable = true;
+      startWhenNeeded = true;
+      ports = [22];
+      settings.permitRootLogin = "no";
+      openFirewall = true;
+    };
+    picom = {
+      enable = true;
+      vSync = true;
+    };
+    xserver = {
+      enable = true;
+      libinput.enable = true;
+      displayManager = {
+        sddm.enable = false;
+        gdm.enable = true;
+        lightdm.enable = false;
+        defaultSession = "none+i3";
+      };
+      windowManager.i3 = {
+        enable = true;
+        extraPackages = with pkgs; [
+          i3status
+          i3lock
+        ];
+      };
+      videoDrivers = ["intel" "modesetting"];
+      layout = "gb";
+      exportConfiguration = true;
+    };
+    printing.enable = true;
+    pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+        jack.enable = true;
+    };
   };
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedUDPPorts = [];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  system.copySystemConfiguration = true;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = stateVersion; # Did you read the comment?
-
+  system.stateVersion = stateVersion;
   system.name = config.networking.hostName;
 
   hardware.opengl = {

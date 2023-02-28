@@ -1,6 +1,4 @@
 {
-  config,
-  pkgs,
   stateVersion,
   username,
   ...
