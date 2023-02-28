@@ -9,12 +9,23 @@ in {
   xsession.windowManager.i3 = {
     enable = true;
 
+    extraConfig = ''
+      title_align center
+    '';
+
     config = {
       modifier = mod;
 
       fonts = {
         names = ["pango:monospace"];
         size = 12.0;
+      };
+      colors.focused = {
+        background = "#ff1764";
+        border = "#e36690";
+        childBorder = "#ff1764";
+        indicator = "#e30b41";
+        text = "#ffffff";
       };
 
       keybindings = lib.mkOptionDefault {
