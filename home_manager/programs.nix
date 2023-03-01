@@ -19,7 +19,6 @@
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
-    #    enableNushellIntegration = true;
   };
   nushell = {
     enable = true;

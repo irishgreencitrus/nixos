@@ -60,7 +60,7 @@ in {
       };
       "module/audio" = {
         type = "internal/pulseaudio";
-        use.ui.max = true;
+        use.ui.max = false;
         label = {
           volume = {
             text = " %percentage%";

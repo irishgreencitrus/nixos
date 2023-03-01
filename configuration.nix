@@ -10,6 +10,7 @@
   stateVersion = "22.11";
 in {
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nixpkgs.config.allowUnfree = true;
 
   boot.loader = {
     systemd-boot.enable = true;
@@ -50,6 +51,8 @@ in {
     packages = with pkgs; [
       firefox
       nitrogen
+      spotify
+      playerctl
       kitty
       rofi
       dmenu

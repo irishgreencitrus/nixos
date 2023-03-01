@@ -11,6 +11,8 @@ in {
 
     extraConfig = ''
       title_align center
+      default_border pixel 2
+      default_floating_border normal
     '';
 
     config = {
@@ -90,6 +92,18 @@ in {
         "${mod}+Shift+e" = "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'i3-msg exit'";
 
         "${mod}+r" = "mode resize";
+        
+        "${mod}+Shift+b" = "border normal";
+        "${mod}+b" = "border pixel 2";
+
+        "XF86AudioRaiseVolume" = "exec --no-startup-id pactl set-sink-volume 0 +5%";
+        "XF86AudioLowerVolume" = "exec --no-startup-id pactl set-sink-volume 0 -5%";
+        "XF86AudioMute" = "exec --no-startup-id pactl set-sink-mute 0 toggle";
+
+        "XF86AudioPlay" = "exec playerctl play-pause";
+        "XF86AudioPause" = "exec playerctl play-pause";
+        "XF86AudioNext" = "exec playerctl next";
+        "XF86AudioPrev" = "exec playerctl previous";
       };
       bars = [];
       startup = [
