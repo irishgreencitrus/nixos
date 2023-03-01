@@ -96,9 +96,9 @@ in {
         "${mod}+Shift+b" = "border normal";
         "${mod}+b" = "border pixel 2";
 
-        "XF86AudioRaiseVolume" = "exec --no-startup-id pactl set-sink-volume 0 +5%";
-        "XF86AudioLowerVolume" = "exec --no-startup-id pactl set-sink-volume 0 -5%";
-        "XF86AudioMute" = "exec --no-startup-id pactl set-sink-mute 0 toggle";
+        "XF86AudioRaiseVolume" = "exec --no-startup-id pulseaudio-ctl up";
+        "XF86AudioLowerVolume" = "exec --no-startup-id pulseaudio-ctl down";
+        "XF86AudioMute" = "exec --no-startup-id pulseaudio-ctl mute";
 
         "XF86AudioPlay" = "exec playerctl play-pause";
         "XF86AudioPause" = "exec playerctl play-pause";
