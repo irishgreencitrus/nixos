@@ -92,13 +92,13 @@ in {
         "${mod}+Shift+e" = "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'i3-msg exit'";
 
         "${mod}+r" = "mode resize";
-        
+
         "${mod}+Shift+b" = "border normal";
         "${mod}+b" = "border pixel 2";
 
-        "XF86AudioRaiseVolume" = "exec --no-startup-id pulseaudio-ctl up";
-        "XF86AudioLowerVolume" = "exec --no-startup-id pulseaudio-ctl down";
-        "XF86AudioMute" = "exec --no-startup-id pulseaudio-ctl mute";
+        "XF86AudioRaiseVolume" = "exec --no-startup-id pamixer -i 5";
+        "XF86AudioLowerVolume" = "exec --no-startup-id pamixer -d 5";
+        "XF86AudioMute" = "exec --no-startup-id pamixer -t";
 
         "XF86AudioPlay" = "exec playerctl play-pause";
         "XF86AudioPause" = "exec playerctl play-pause";

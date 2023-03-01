@@ -71,7 +71,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     pulseaudio # Install the helper functions for pipewire-pulse
-    pulseaudio-ctl
+    pamixer
     vim
     neovim
     wget
