@@ -4,6 +4,7 @@
   pkgs,
   ...
 }: let
+  binpath = "/etc/profiles/per-user/lime/bin";
   background_colour = "#262626";
 in {
   services.polybar = {
@@ -22,7 +23,7 @@ in {
         radius = 3;
         modules = {
           left = "i3";
-          right = "network audio date";
+          right = "media network audio date";
         };
         font = ["Hurmit Nerd Font Mono:style=medium:size=14;2"];
         module.margin.right = 2;
@@ -32,7 +33,6 @@ in {
         };
         tray = {
           position = "right";
-          transparent = true;
         };
       };
       "module/network" = {
@@ -95,10 +95,21 @@ in {
           };
           separator = {
             text = "|";
-            padding = 3;
+            padding = 1;
             foreground = "#ffb52a";
             background = background_colour;
           };
+        };
+      };
+      "module/media" = {
+        type = "custom/script";
+        exec = "${binpath}/playerctl -p spotify metadata --format \"{{ title }} :: {{ artist }}\"";
+        exec-if = "${binpath}/playerctl -p spotify status";
+        interval = 1;
+        format = {
+            prefix = " ";
+            foreground = "#42bff5";
+            background = background_colour;
         };
       };
     };

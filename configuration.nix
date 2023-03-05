@@ -53,6 +53,7 @@ in {
       nitrogen
       spotify
       playerctl
+      zscroll
       kitty
       rofi
       dmenu
