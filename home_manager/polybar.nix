@@ -107,9 +107,9 @@ in {
         exec-if = "${binpath}/playerctl -p spotify status";
         interval = 1;
         format = {
-            prefix = " ";
-            foreground = "#42bff5";
-            background = background_colour;
+          prefix = " ";
+          foreground = "#42bff5";
+          background = background_colour;
         };
       };
     };

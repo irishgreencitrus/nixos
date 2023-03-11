@@ -47,10 +47,18 @@ in {
 
   users.users.${username} = {
     isNormalUser = true;
-    extraGroups = ["wheel"];
+    extraGroups = ["wheel" "docker" "libvirtd"];
     packages = with pkgs; [
       firefox
       nitrogen
+      vlc
+      system-config-printer
+      libreoffice
+      xclip
+      xsel
+      obs-studio
+      pavucontrol
+      htop
       spotify
       playerctl
       zscroll
@@ -72,6 +80,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     pulseaudio # Install the helper functions for pipewire-pulse
+    virt-manager
     pamixer
     vim
     neovim
@@ -85,7 +94,7 @@ in {
   ];
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
   services = {
@@ -121,7 +130,15 @@ in {
       layout = "gb";
       exportConfiguration = true;
     };
-    printing.enable = true;
+    avahi = {
+      enable = true;
+      nssmdns = true;
+      openFirewall = true;
+    };
+    printing = {
+      drivers = [pkgs.cnijfilter2 pkgs.gutenprint];
+      enable = true;
+    };
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -130,9 +147,20 @@ in {
       jack.enable = true;
     };
   };
+  programs.dconf.enable = true;
+  virtualisation = {
+    docker = {
+      enable = true;
+      storageDriver = "btrfs";
+    };
+    libvirtd.enable = true;
+  };
 
   system.stateVersion = stateVersion;
   system.name = config.networking.hostName;
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
+  };
 
   hardware.opengl = {
     enable = true;
@@ -144,5 +172,6 @@ in {
       vaapiVdpau
       libvdpau-va-gl
     ];
+    extraPackages32 = with pkgs.pkgsi686Linux; [vaapiIntel];
   };
 }
