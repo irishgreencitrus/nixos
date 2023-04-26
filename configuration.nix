@@ -16,6 +16,7 @@ in {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
+  boot.supportedFilesystems = [ "ntfs" "btrfs" ];
 
   imports = [
     ./hardware-configuration.nix
@@ -29,7 +30,7 @@ in {
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [];
+      allowedTCPPorts = [25565 9225];
       allowedUDPPorts = [];
     };
     networkmanager.enable = true;
@@ -50,6 +51,7 @@ in {
     extraGroups = ["wheel" "docker" "libvirtd"];
     packages = with pkgs; [
       firefox
+      blender
       nitrogen
       vlc
       system-config-printer
@@ -80,6 +82,14 @@ in {
 
   environment.systemPackages = with pkgs; [
     pulseaudio # Install the helper functions for pipewire-pulse
+    python310
+    python310Packages.pip
+    nodejs
+    rustup
+    julia-bin
+    ntfs3g
+    exfat
+    exfatprogs
     virt-manager
     pamixer
     vim
@@ -114,9 +124,10 @@ in {
       enable = true;
       libinput.enable = true;
       displayManager = {
-        sddm.enable = false;
-        gdm.enable = true;
-        lightdm.enable = false;
+        lightdm = {
+            enable = true;
+            greeters.enso.enable = true;
+        };
         defaultSession = "none+i3";
       };
       windowManager.i3 = {
@@ -148,6 +159,7 @@ in {
     };
   };
   programs.dconf.enable = true;
+
   virtualisation = {
     docker = {
       enable = true;
