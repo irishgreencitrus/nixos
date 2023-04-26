@@ -13,10 +13,10 @@
     sessionVariables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
-      BUN_INSTALL="$HOME/.bun";
+      BUN_INSTALL = "$HOME/.bun";
     };
     sessionPath = [
-        "$HOME/.bun/bin"
+      "$HOME/.bun/bin"
     ];
   };
   programs = import ./programs.nix;

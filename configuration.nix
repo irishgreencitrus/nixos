@@ -16,7 +16,7 @@ in {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
-  boot.supportedFilesystems = [ "ntfs" "btrfs" ];
+  boot.supportedFilesystems = ["ntfs" "btrfs"];
 
   imports = [
     ./hardware-configuration.nix
@@ -125,8 +125,8 @@ in {
       libinput.enable = true;
       displayManager = {
         lightdm = {
-            enable = true;
-            greeters.enso.enable = true;
+          enable = true;
+          greeters.enso.enable = true;
         };
         defaultSession = "none+i3";
       };
