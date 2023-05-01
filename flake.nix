@@ -19,25 +19,25 @@
   in {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
     nixosConfigurations = {
-        pomegranate = nixpkgs.lib.nixosSystem {
-              system = systemVersion;
-              modules = [
-                ./systems/pomegranate/configuration.nix
-                home-manager.nixosModules.home-manager
-                {
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.users.${username} = import ./shared/home_manager/configuration.nix {
-                    inherit stateVersion systemVersion username;
-                  };
-                }
-              ];
+      pomegranate = nixpkgs.lib.nixosSystem {
+        system = systemVersion;
+        modules = [
+          ./systems/pomegranate/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.users.${username} = import ./shared/home_manager/configuration.nix {
+              inherit stateVersion systemVersion username;
             };
-        sourkraut = nixpkgs.lib.nixosSystem {
-            system = systemVersion;
-            modules = [
-                ./systems/sourkraut/configuration.nix
-            ];
-        };
+          }
+        ];
+      };
+      sourkraut = nixpkgs.lib.nixosSystem {
+        system = systemVersion;
+        modules = [
+          ./systems/sourkraut/configuration.nix
+        ];
+      };
     };
   };
 }

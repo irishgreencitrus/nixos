@@ -115,7 +115,7 @@ in {
       enable = true;
       startWhenNeeded = true;
       ports = [22];
-      settings.permitRootLogin = "no";
+      permitRootLogin = "no";
       openFirewall = true;
     };
     picom = {
