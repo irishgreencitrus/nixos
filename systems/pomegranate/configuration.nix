@@ -4,6 +4,7 @@
 {
   config,
   pkgs,
+  unstable-pkgs,
   ...
 }: let
   username = "lime";
@@ -51,8 +52,6 @@ in {
     isNormalUser = true;
     extraGroups = ["wheel" "docker" "libvirtd"];
     packages = with pkgs; [
-      firefox
-      blender
       nitrogen
       vlc
       system-config-printer
@@ -64,10 +63,13 @@ in {
       htop
       spotify
       playerctl
-      zscroll
       kitty
       rofi
       dmenu
+    ] ++ [
+        unstable-pkgs.blender
+        unstable-pkgs.firefox
+        unstable-pkgs.zscroll
     ];
   };
 

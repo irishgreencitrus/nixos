@@ -2,6 +2,7 @@
   description = "irishgreencitrus' NixOS configuration";
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-22.11";
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -11,6 +12,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     home-manager,
   }: let
     systemVersion = "x86_64-linux";
@@ -31,6 +33,7 @@
             };
           }
         ];
+        specialArgs = { unstable-pkgs = nixpkgs-unstable.legacyPackages."${systemVersion}".pkgs; }; 
       };
       sauerkraut = nixpkgs.lib.nixosSystem {
         system = systemVersion;
