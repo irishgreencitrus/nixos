@@ -32,12 +32,12 @@
                 }
               ];
             };
-        /* sourkraut = nixpkgs.lib.nixosSystem {
+        sourkraut = nixpkgs.lib.nixosSystem {
             system = systemVersion;
             modules = [
-                ./systems/sourkraut
+                ./systems/sourkraut/configuration.nix
             ];
-        }; */
+        };
     };
   };
 }
