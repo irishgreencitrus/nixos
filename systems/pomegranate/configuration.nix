@@ -16,6 +16,7 @@ in {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
+
   boot.supportedFilesystems = ["ntfs" "btrfs"];
 
   imports = [
@@ -30,8 +31,8 @@ in {
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [25565 9225];
-      allowedUDPPorts = [];
+      allowedTCPPorts = [25565 9225 5005];
+      allowedUDPPorts = [5005];
     };
     networkmanager.enable = true;
   };
@@ -92,8 +93,9 @@ in {
     exfatprogs
     virt-manager
     pamixer
-    vim
     neovim
+    emacs
+    vim
     wget
     git
     stdenvNoCC

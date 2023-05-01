@@ -21,11 +21,11 @@
     nixosConfigurations.pomegranate = nixpkgs.lib.nixosSystem {
       system = systemVersion;
       modules = [
-        ./configuration.nix
+        ./systems/pomegranate/configuration.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
-          home-manager.users.${username} = import ./home_manager/configuration.nix {
+          home-manager.users.${username} = import ./systems/pomegranate/home_manager/configuration.nix {
             inherit stateVersion systemVersion username;
           };
         }
