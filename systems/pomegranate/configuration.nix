@@ -5,6 +5,7 @@
   config,
   pkgs,
   unstable-pkgs,
+  zest-pkgs,
   ...
 }: let
   username = "lime";
@@ -70,6 +71,7 @@ in {
         unstable-pkgs.blender
         unstable-pkgs.firefox
         unstable-pkgs.zscroll
+        zest-pkgs.godot-bin
     ];
   };
 

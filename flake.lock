@@ -52,11 +52,27 @@
         "type": "indirect"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1682879489,
+        "narHash": "sha256-sASwo8gBt7JDnOOstnps90K1wxmVfyhsTPPNTGBPjjg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "da45bf6ec7bbcc5d1e14d3795c025199f28e0de0",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-unstable",
+        "type": "indirect"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "zest": "zest"
       }
     },
     "utils": {
@@ -71,6 +87,24 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "zest": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1682963012,
+        "narHash": "sha256-5lcgueV9rNgX6BOBcgFeK7Z0exOnZniEQiT1wRpJ8/k=",
+        "owner": "irishgreencitrus",
+        "repo": "zest",
+        "rev": "06286d741a11e99efc04fbf406749c7411809d40",
+        "type": "github"
+      },
+      "original": {
+        "owner": "irishgreencitrus",
+        "repo": "zest",
         "type": "github"
       }
     }

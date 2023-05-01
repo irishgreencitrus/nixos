@@ -3,6 +3,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-22.11";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+    zest.url = "github:irishgreencitrus/zest";
     home-manager = {
       url = "github:nix-community/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,6 +15,7 @@
     nixpkgs,
     nixpkgs-unstable,
     home-manager,
+    zest
   }: let
     systemVersion = "x86_64-linux";
     username = "lime";
@@ -33,7 +35,10 @@
             };
           }
         ];
-        specialArgs = { unstable-pkgs = nixpkgs-unstable.legacyPackages."${systemVersion}".pkgs; }; 
+        specialArgs = {
+            unstable-pkgs = nixpkgs-unstable.legacyPackages."${systemVersion}".pkgs;
+            zest-pkgs = zest.packages.${systemVersion};
+        }; 
       };
       sauerkraut = nixpkgs.lib.nixosSystem {
         system = systemVersion;
