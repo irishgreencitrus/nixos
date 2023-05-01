@@ -13,7 +13,6 @@
     initialPassword = "changeme";
     extraGroups = ["wheel"];
   };
-  networking.hostName = "sourkraut";
   networking.networkmanager.enable = true;
   system.stateVersion = "22.11";
   boot.loader = {

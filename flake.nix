@@ -32,10 +32,10 @@
           }
         ];
       };
-      sourkraut = nixpkgs.lib.nixosSystem {
+      sauerkraut = nixpkgs.lib.nixosSystem {
         system = systemVersion;
         modules = [
-          ./systems/sourkraut/configuration.nix
+          ./systems/sauerkraut/configuration.nix
         ];
       };
     };
