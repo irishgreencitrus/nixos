@@ -70,7 +70,9 @@ in {
     ] ++ [
         unstable-pkgs.blender
         unstable-pkgs.firefox
+        unstable-pkgs.thunderbird
         unstable-pkgs.zscroll
+        unstable-pkgs.ripgrep
         zest-pkgs.godot-bin
     ];
   };
